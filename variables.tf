@@ -288,3 +288,17 @@ variable "create_service_link_role" {
   type        = bool
   default     = false
 }
+/*
+variable "create" {
+  description = "policy creation need or not"
+  type = number
+  default = 1
+}*/
+
+variable "domain_region" {
+  description = "region"
+  type = string
+  default = "us-east-1"
+}
+
+

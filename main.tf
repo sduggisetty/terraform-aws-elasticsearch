@@ -1,3 +1,25 @@
+data "aws_caller_identity" "current" {}
+
+resource "aws_elasticsearch_domain_policy" "es_policy" {
+  //count           = var.create ? 1 : 0
+  domain_name     = var.domain_name
+  access_policies = <<CONFIG
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": "es:*",
+            "Principal": {
+              "AWS": "*"
+             },
+            "Effect": "Allow",
+            "Resource": "arn:aws:es:${var.domain_region}:${data.aws_caller_identity.current.account_id}:domain/${var.domain_name}/*"
+        }
+    ]
+}
+CONFIG
+}
+
 resource "aws_elasticsearch_domain" "es_domain" {
 
   # Enabling HTTPS
